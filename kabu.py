@@ -56,7 +56,6 @@ def chart(symbol,name,ro):
     plt.pause(13)
     plt.close()
 
-
 chart("NIKKEI225","日経平均株価、",0)
 chart("DJIA","ダウ平均株価、",0)
 chart("VIXCLS","ビックス、",2)
