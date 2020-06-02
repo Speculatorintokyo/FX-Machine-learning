@@ -4,7 +4,10 @@ from datetime import timedelta
 import datetime
 import talib
 import pyperclip
-
+#pip install pandas-datareader
+#pip install matplotlib
+#pip install TA-Lib
+#pip install pyperclip
 
 
 today =  datetime.datetime.now()
