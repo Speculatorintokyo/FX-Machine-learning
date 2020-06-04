@@ -4,6 +4,7 @@ from datetime import timedelta
 import datetime
 import talib
 import pyperclip
+#必要なライブラリをインストールしてください。
 #pip install pandas-datareader
 #pip install matplotlib
 #pip install TA-Lib
@@ -46,30 +47,33 @@ def chart(symbol,name,ro):
     else:
         macstr = "下向きです"
 
-#data.iloc[-1,1]
-    tit = name+str(round(data[symbol][-1],ro))+ "　前日比　"+str(beforeratio)+trnd
+
+    tit = name+str(round(data[symbol][-1],ro))+ "　前日比 "+str(beforeratio)+"  " +str(round((beforeratio/data[symbol][-1])*100,2))+"%"+trnd
     pyperclip.copy("、　　　　　　　　　　、"+tit
     +"　あーるえすあいは"+str(round(data.iloc[-1,2],1))
     +"　マックディーは"+ macstr )
 
-    plt.text( 0.1, 0.9, tit,horizontalalignment='left', verticalalignment='top', family='monospace'
+    plt.text( 0.05, 0.9, tit,horizontalalignment='left', verticalalignment='top', family='monospace'
     , transform=axes[0].transAxes,fontname="Yu Gothic", fontsize=18)
 
     plt.draw()
     plt.pause(13)
     plt.close()
 
+
+
 chart("NIKKEI225","日経平均株価、",0)
 chart("DJIA","ダウ平均株価、",0)
 chart("VIXCLS","ビックス、",2)
-chart("DGS2","米2年債利回り、",4)
 chart("GOLDAMGBD228NLBM","金、",1)
-
+chart("DGS10","米10年債利回り、",4)
+chart("T10Y2Y","米10年債と2年債の金利差、",2)
 
 if today.weekday() == 0:
     chart("SP500","Ｓ＆Ｐ500、",0)
-    chart("WALCL","フェッド資産、",3)
-    chart("BAMLH0A3HYC","ジャンク債、",3)
+    chart("WALCL","フェッド資産額、",3)
+    chart("BAMLH0A3HYC","ハイイールドインデックス、",3)
+    chart("DCOILWTICO","WTI原油、",1)
     chart("DEXJPUS","ドル円、",2)
     chart("DEXUSEU","ユーロドル、",4)
-    chart("DCOILWTICO","原油、",1)
+    chart("DGS2","米2年債利回り、",4)
