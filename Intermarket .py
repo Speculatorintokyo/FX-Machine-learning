@@ -25,6 +25,10 @@ for i in list:
 
 df.tail()
 
+#相関係数
+print(df.corr())
+
+
 #df.to_csv('FilePath')
 
 
@@ -140,3 +144,18 @@ plot_history_acc(fit)
 plt.show()
 #fig.savefig('./mnist-tutorial.png')
 #plt.close()
+
+
+'''
+"NIKKEI225" ,"日経平均株価"
+"DJIA","ダウ平均株価、
+"SP500","Ｓ＆Ｐ500、
+"VIXCLS","ビックス、
+"GOLDAMGBD228NLBM","金、
+"DCOILWTICO","WTI原油、
+"DGS2","米2年債利回り、
+"DGS10","米10年債利回り、
+"T10Y2Y","米10年債と2年債の金利差、
+"BAMLH0A3HYC","ハイイールドインデックス、
+"DEXUSEU","ユーロドル、
+'''
