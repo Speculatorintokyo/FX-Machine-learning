@@ -1,6 +1,6 @@
-#棒読みちゃんを起動します。必要ないかたは削除・コメントアウトしてください。FilePath \BouyomiChan.exe
+#棒読みちゃんを起動します。必要ないかたは削除・コメントアウトしてください。
 import subprocess
-subprocess.Popen(r"E:\DATA\PG\BouyomiChan\BouyomiChan.exe",shell=True)
+subprocess.Popen(r"FilePath \BouyomiChan.exe",shell=True)
 
 import pandas_datareader.data as web
 import matplotlib.pyplot as plt
