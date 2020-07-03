@@ -1,4 +1,4 @@
-#棒読みちゃんを起動します。必要ないかたは削除・コメントアウトしてください。
+#棒読みちゃんを起動します。BouyomiChan.exeのファイルパスを入力してください。
 import subprocess
 subprocess.Popen(r"FilePath \BouyomiChan.exe",shell=True)
 
@@ -8,7 +8,7 @@ from datetime import timedelta
 import datetime
 import talib
 import pyperclip
-#必要なライブラリをインストールしてください。
+
 #pip install pandas-datareader
 #pip install matplotlib
 #pip install TA-Lib
@@ -27,14 +27,17 @@ def chart(symbol,name,ro):
     data = data.dropna(axis=0, how='any')
 
     #テクニカル指標
-    data["MA"] = talib.EMA(data[symbol],timeperiod=21)
+    #data["MA"] = talib.EMA(data[symbol],timeperiod=21)
     data["RSI"] = talib.RSI(data[symbol],timeperiod=7)
     data["MACD"],data["macdsignal"],data["macdhist"]  = talib.MACD(data[symbol], fastperiod=12, slowperiod=26, signalperiod=9)
+    data["upperband"],data["MA"],data["lowerband"] = talib.BBANDS(data[symbol], timeperiod=21, nbdevup=2, nbdevdn=2, matype=0)
 
     #チャートを描写
     fig, axes = plt.subplots(nrows=3, ncols=1, figsize=(12, 4), sharex=True,gridspec_kw={'height_ratios': [5, 1,1]})
     axes[0].plot(data[symbol])
-    axes[0].plot(data["MA"])
+    axes[0].plot(data["MA"], color='tab:orange')
+    axes[0].plot(data["upperband"], color='tab:orange')
+    axes[0].plot(data["lowerband"], color='tab:orange')
     axes[1].plot(data["RSI"])
     axes[2].plot(data["MACD"])
     axes[2].plot(data["macdsignal"])
@@ -50,7 +53,7 @@ def chart(symbol,name,ro):
     else:
         trnd = "の下落です"
 
-    if data.iloc[-1,3] > data.iloc[-1,4]:
+    if data.iloc[-1,2] > data.iloc[-1,3]:
         macstr = "上向きです"
     else:
         macstr = "下向きです"
@@ -58,7 +61,7 @@ def chart(symbol,name,ro):
 
     tit = name+str(round(data[symbol][-1],ro))+ "　前日比 "+str(beforeratio)+"  " +str(round((beforeratio/data[symbol][-1])*100,2))+"%"+trnd
     pyperclip.copy("、　　　　　　　　　　、"+tit
-    +"　あーるえすあいは"+str(round(data.iloc[-1,2],1))
+    +"　あーるえすあいは"+str(round(data.iloc[-1,1],1))
     +"　マックディーは"+ macstr )
 
     plt.text( 0.05, 0.9, tit,horizontalalignment='left', verticalalignment='top', family='monospace'
